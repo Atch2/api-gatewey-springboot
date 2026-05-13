@@ -1,0 +1,126 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Microservicios — Catálogo (Gateway + Eureka)",
+    "description": "Colección para probar la práctica descrita en README.md.\n\n**Orden de arranque:** Eureka (8761) → categorías y productos → apigateway (8080).\n\nLas peticiones REST van contra el **API Gateway** (`gatewayUrl`). Los microservicios usan puerto dinámico; para llamarlos directo, copia host:puerto desde el panel de Eureka.\n\n**Validaciones (categorías):** `slug` solo minúsculas `[a-z]+`, `priority` entre 1 y 100, `valueCategory` positivo, `createDate` fecha pasada o hoy, `email` único.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "gatewayUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "eurekaUrl",
+      "value": "http://localhost:8761"
+    }
+  ],
+  "item": [
+    {
+      "name": "Eureka",
+      "item": [
+        {
+          "name": "Eureka — panel (HTML)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{eurekaUrl}}/"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gateway — Categorías",
+      "item": [
+        {
+          "name": "GET /api/categorias (listar)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/categorias"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/categorias/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/categorias/1"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/categorias (crear)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"observation\": \"Categoría de prueba desde Postman\",\n  \"createDate\": \"2026-05-11\",\n  \"valueCategory\": 10,\n  \"slug\": \"demo\",\n  \"priority\": 5,\n  \"email\": \"demo-categoria@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{gatewayUrl}}/api/categorias"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gateway — Productos",
+      "item": [
+        {
+          "name": "GET /api/productos (listar)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/productos"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/productos/{id}",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/productos/1"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/productos (crear)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Producto demo\",\n  \"descripcion\": \"Creado desde Postman vía Gateway\",\n  \"precio\": 19.99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{gatewayUrl}}/api/productos"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
