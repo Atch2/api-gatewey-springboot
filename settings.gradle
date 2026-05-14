@@ -1,2 +1,2 @@
 rootProject.name = 'eureka_microservices'
-include 'categorias','productos','eurekaserver','apigateway'
+include 'categorias','productos','eurekaserver','apigateway','configserver'
